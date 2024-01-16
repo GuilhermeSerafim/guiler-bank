@@ -1,11 +1,12 @@
 export default function ehCpf(campo) {
     // Removendo caracteres especiais
     // Replace troca os caracteres do primeiro parametro pelo segundo parametro
-    const cpf = campo.value.replace(/\.|-/g, ""); 
-    console.log(validaNumerosRepetidos(cpf));
+    // Fim do script explica mais sobre regex
+    const cpfConvertido = campo.value.replace(/\.|-/g, ""); 
+    validaNumerosRepetidos(cpfConvertido);
 }
 
-function validaNumerosRepetidos(cpf) {
+function validaNumerosRepetidos(cpfConvertido) {
     const numerosRepetidos = [
     '00000000000',
     '11111111111',
@@ -20,5 +21,11 @@ function validaNumerosRepetidos(cpf) {
     ]
 
     // Includes retorna false ou true se está incluido ou não
-    return numerosRepetidos.includes(cpf); 
+    return numerosRepetidos.includes(cpfConvertido); 
 }
+
+// /\.|-/g (regex)
+// \.: Corresponde literalmente a um ponto.
+// |: Funciona como um operador de alternância, indicando "OU".
+// -: Corresponde literalmente a um traço.
+// /g: Modificador global, que faz com que a correspondência seja feita globalmente em toda a string (não pare após encontrar a primeira correspondência).

@@ -78,7 +78,7 @@
                 </fieldset>
                 <fieldset class="formulario__campo">
                     <label class="campo__etiqueta" for="cpf">CPF (apenas números)</label>
-                    <input name="cpf" id="cpf" class="campo__escrita campo__escrita--menor" type="text" minlength="11" maxlength="14" required pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" /> <!--Expressões regulares - Pattern e Regex-->
+                    <input name="cpf" id="cpf" class="campo__escrita campo__escrita--menor" type="text" minlength="11" maxlength="14" required pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" /> <!--// Fim do HTML explica mais sobre esse pattern-->
                     <span class="mensagem-erro"></span>
                 </fieldset>
                 <fieldset class="formulario__campo">
@@ -162,3 +162,8 @@
 </body>
 
 </html>
+<!-- \d{3}\.?\d{3}\.?\d{3}-?\d{2} (Pattern) -->
+<!-- \d{3}	Encontra correspondência com um número (equivalente a [0-9]) por 3 vezes.
+.?	Seguido por um ponto opcional.
+-?	Seguido por um hífen opcional.
+\d{2}	Encontra um número duas vezes. -->
