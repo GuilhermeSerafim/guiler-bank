@@ -60,11 +60,19 @@ function verificaCampo(campo) {
     tiposDeErros.forEach(erro => {
         if(campo.validity[erro]) { // Se algum erro está do nosso array de erros existe dentro do validity (que tem os mesmos nomes)
             exibicaoMensagem = mensagensDeErro[campo.name][erro]; // Destrinchando até conseguir o erro respectivo do campo
-            // Para melhor entendimento
+            // Para melhor entendimento do destrinchamento
             console.log(mensagensDeErro) // Todas as chaves que possuem mensagens de erros
-            console.log(mensagensDeErro[campo.name]) // Todos os valores, sendo eles, nomes e as mensagens dos erros
+            console.log(mensagensDeErro[campo.name]) // Todos os valores do parametroDaFunção.name (nome, ou email, etc) atendido, sendo eles, nomes e as mensagens dos erros
             console.log(erro); // Nome do erro que passou na condição
             console.log(exibicaoMensagem); // Mensagem de erro do respectivo campo que passou na condição
         }
     })
+    const mensagemErro = campo.parentNode.querySelector('.mensagem-erro');
+    const validadorDeInput = campo.checkValidity();
+
+    if(!validadorDeInput) {
+        mensagemErro.textContent =  exibicaoMensagem;
+    } else {
+        mensagemErro.textContent = "";
+    }
 }
