@@ -2,6 +2,23 @@ import ehCpf from "./valida-cpf.js";
 import ehMaiorDeIdade from "./valida-idade.js";
 
 const camposDosFormularios = document.querySelectorAll("[required]");
+const form = document.querySelector("[data-formulario]");
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Extraindo valores dos campos
+    const listaResposta = {
+        "nome": e.target.elements["nome"].value,
+        "email": e.target.elements["email"].value,
+        "cpf": e.target.elements["cpf"].value,
+        "aniversario": e.target.elements["aniversario"].value
+    }
+
+    // Convertendo objeto em string com a api JSON e enviando o corpo para o armazenamento local
+    localStorage.setItem("cadastro", JSON.stringify(listaResposta));
+
+    window.location.href("./abrir-conta-form-2.html");
+})
 
 const tiposDeErros = [
     'valueMissing', // Campo obrigatório vazio.
@@ -49,16 +66,19 @@ camposDosFormularios.forEach((campo) => {
 
 function verificaCampo(campo) {
     let exibicaoMensagem = "";
-    if(campo.name == "cpf" && campo.value.length >= 11) {
+    // Para limpar mensagens de erros
+    // campo.setCustomValidity(""); essa linha é desnecessaria, pelo o que eu analisei, por que no final do código da função ja limpamos se não o campo for válido (mas se caso perceber algo tiro o comentario)
+
+    if (campo.name == "cpf" && campo.value.length >= 11) {
         ehCpf(campo);
     }
-    
-    if(campo.name == "aniversario" && campo.value != '') {
+
+    if (campo.name == "aniversario" && campo.value != '') {
         ehMaiorDeIdade(campo);
     }
 
     tiposDeErros.forEach(erro => {
-        if(campo.validity[erro]) { // Se algum erro está do nosso array de erros existe dentro do validity (que tem os mesmos nomes)
+        if (campo.validity[erro]) { // Se algum erro está do nosso array de erros existe dentro do validity (que tem os mesmos nomes)
             exibicaoMensagem = mensagensDeErro[campo.name][erro]; // Destrinchando até conseguir o erro respectivo do campo
             // Para melhor entendimento do destrinchamento
             console.log(mensagensDeErro) // Todas as chaves que possuem mensagens de erros
@@ -67,11 +87,12 @@ function verificaCampo(campo) {
             console.log(exibicaoMensagem); // Mensagem de erro do respectivo campo que passou na condição
         }
     })
-    const mensagemErro = campo.parentNode.querySelector('.mensagem-erro');
-    const validadorDeInput = campo.checkValidity();
+    const mensagemErro = campo.parentNode.querySelector('.mensagem-erro'); // Para pegar o span do respectivo campo do parametro da nossa função
+    const validadorDeInput = campo.checkValidity(); // Checando se está valido
 
-    if(!validadorDeInput) {
-        mensagemErro.textContent =  exibicaoMensagem;
+    // Exibir e parar de exibir o erro
+    if (!validadorDeInput) {
+        mensagemErro.textContent = exibicaoMensagem;
     } else {
         mensagemErro.textContent = "";
     }

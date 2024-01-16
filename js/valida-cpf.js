@@ -1,14 +1,12 @@
-export default function ehCpf(campo) {
+export default function ehCpf(campoCpf) {
     // Removendo caracteres especiais
     // Replace troca os caracteres do primeiro parametro pelo segundo parametro
     // Fim do script explica mais sobre regex
-    const cpfSemCaracteresEspeciais = campo.value.replace(/\.|-/g, "");
-    if(validaNumerosRepetidos(cpfSemCaracteresEspeciais) 
-    || validaPrimeiroDigito(cpfSemCaracteresEspeciais) 
-    || validaSegundoDigito(cpfSemCaracteresEspeciais)) {
-        console.log("Esse CPF não existe");
-    } else {
-        console.log("Esse cpf existe!")
+    const cpfSemCaracteresEspeciais = campoCpf.value.replace(/\.|-/g, "");
+    if (validaNumerosRepetidos(cpfSemCaracteresEspeciais)
+        || validaPrimeiroDigito(cpfSemCaracteresEspeciais)
+        || validaSegundoDigito(cpfSemCaracteresEspeciais)) {
+        campoCpf.setCustomValidity("Esse CPF não é válido");
     }
 
 }
