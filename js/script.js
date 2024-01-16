@@ -5,11 +5,11 @@ const camposDosFormularios = document.querySelectorAll("[required]");
 
 camposDosFormularios.forEach((campo) => {
     campo.addEventListener("blur", () => verificaCampo(campo));
+    campo.addEventListener("invalid", (evento) => evento.preventDefault())
 });
 
 function verificaCampo(campo) {
     if(campo.name == "cpf" && campo.value.length >= 11) {
-        console.log(campo.value)
         ehCpf(campo);
     }
     

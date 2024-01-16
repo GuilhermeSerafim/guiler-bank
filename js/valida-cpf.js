@@ -32,6 +32,7 @@ function validaNumerosRepetidos(cpfSemCaracteresEspeciais) {
 }
 
 // Forma de realizar a ponderação adequada dos dígitos do CPF para calcular o dígito verificador corretamente, seguindo as regras estabelecidas pelo documento
+// Transformando fórmulas matemáticas em código
 function validaPrimeiroDigito(cpfSemCaracteresEspeciais) {
     // Variável para acumular o resultado das multiplicações e somas
     let soma = 0;
