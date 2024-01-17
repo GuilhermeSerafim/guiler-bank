@@ -6,19 +6,26 @@ const form = document.querySelector("[data-formulario]");
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    // Extraindo valores dos campos
-    const listaResposta = {
-        "nome": e.target.elements["nome"].value,
-        "email": e.target.elements["email"].value,
-        "cpf": e.target.elements["cpf"].value,
-        "aniversario": e.target.elements["aniversario"].value
+    // Verificação da aceitação dos termos
+    if (!e.target.elements["termos"].checked) {
+        verificaCampo(e.target.elements["termos"]);
+    } 
+    else {
+        // Extraindo valores dos campos do form
+        const listaResposta = {
+            "nome": e.target.elements["nome"].value,
+            "email": e.target.elements["email"].value,
+            "cpf": e.target.elements["cpf"].value,
+            "aniversario": e.target.elements["aniversario"].value,
+            "termos": e.target.elements["termos"].value
+        }
+
+        // Convertendo objeto em string com a api JSON e enviando o corpo para o armazenamento local
+        localStorage.setItem("cadastro", JSON.stringify(listaResposta));
+
+        window.location.href = "./abrir-conta-form-2.html";
     }
-
-    // Convertendo objeto em string com a api JSON e enviando o corpo para o armazenamento local
-    localStorage.setItem("cadastro", JSON.stringify(listaResposta));
-
-    window.location.href("./abrir-conta-form-2.html");
-})
+});
 
 const tiposDeErros = [
     'valueMissing', // Campo obrigatório vazio.
@@ -28,7 +35,7 @@ const tiposDeErros = [
     'customError' // Erro personalizado definido por script.
 ]
 
-const mensagensDeErro = {
+const mensagensErros = {
     nome: {
         valueMissing: "O campo de nome não pode estar vazio.",
         patternMismatch: "Por favor, preencha um nome válido.",
@@ -60,7 +67,9 @@ const mensagensDeErro = {
 }
 
 camposDosFormularios.forEach((campo) => {
+    // Usar nossos proprios tratamentos de erros
     campo.addEventListener("blur", () => verificaCampo(campo));
+    //  Tirar o comportamento padrão dos erros
     campo.addEventListener("invalid", (evento) => evento.preventDefault())
 });
 
@@ -79,10 +88,10 @@ function verificaCampo(campo) {
 
     tiposDeErros.forEach(erro => {
         if (campo.validity[erro]) { // Se algum erro está do nosso array de erros existe dentro do validity (que tem os mesmos nomes)
-            exibicaoMensagem = mensagensDeErro[campo.name][erro]; // Destrinchando até conseguir o erro respectivo do campo
+            exibicaoMensagem = mensagensErros[campo.name][erro]; // Destrinchando até conseguir o erro respectivo do campo
             // Para melhor entendimento do destrinchamento
-            console.log(mensagensDeErro) // Todas as chaves que possuem mensagens de erros
-            console.log(mensagensDeErro[campo.name]) // Todos os valores do parametroDaFunção.name (nome, ou email, etc) atendido, sendo eles, nomes e as mensagens dos erros
+            console.log(mensagensErros) // Todas as chaves que possuem mensagens de erros
+            console.log(mensagensErros[campo.name]) // Todos os valores do parametroDaFunção.name (nome, ou email, etc) atendido, sendo eles, nomes e as mensagens dos erros
             console.log(erro); // Nome do erro que passou na condição
             console.log(exibicaoMensagem); // Mensagem de erro do respectivo campo que passou na condição
         }
