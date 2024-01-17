@@ -4,8 +4,9 @@ const iframeVideo = document.querySelector("[data-video]");
 const btTirarFoto = document.querySelector("[data-tirar-foto]");
 const foto = document.querySelector("[data-video-canvas]");
 const mensagemDeCapturaConcluida = document.querySelector("[data-mensagem]");
+const btEnviarFoto = document.querySelector("[data-enviar]");
 
-const imagemURL = "";
+let imagemURL = "";
 
 // Funcionalidade para iniciar a câmera
 bTIniciarCamera.addEventListener("click", async function () {
@@ -23,8 +24,26 @@ bTIniciarCamera.addEventListener("click", async function () {
 
 // Funcionalidade para tirar foto
 btTirarFoto.addEventListener("click", () => {
-    foto.getContext('2d').drawImage(video, 0, 0, foto.width, foto.height);
+    // Captura a imagem do vídeo e a desenha no elemento canvas chamado 'foto'
+    foto.getContext('2d').drawImage(iframeVideo, 0, 0, foto.width, foto.height);
+
+    // Converte a imagem do canvas para um formato de URL base64 (jpeg)
     imagemURL = foto.toDataURL("image/jpeg");
+
+    // Esconde o campo de exibição da camera e exibi a mensagem de captura concluída
     campoDeExibicaoCamera.style.display = "none";
     mensagemDeCapturaConcluida.style.display = "block";
 });
+
+// Funcionalidade para enviar a imagem para o armazenamento local
+btEnviarFoto.addEventListener("click", () => {
+    const receberDadosEmString = localStorage.getItem("cadastro");
+    // parse - Converte uma string JSON em um objeto JavaScript.
+    const conversaoParaJs = JSON.parse(receberDadosEmString);
+    conversaoParaJs.imagem = imagemURL;
+
+    // stringify - Converte um objeto js para string JSON (localStorage só aceita string)
+    localStorage.setItem("cadastro", JSON.stringify(conversaoParaJs));
+
+    window.location.href = "./abrir-conta-form-3.html"
+})
