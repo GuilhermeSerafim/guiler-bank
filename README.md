@@ -1,13 +1,38 @@
-<p align="center"> <img src="https://imgur.com/mIBmcEL.png" alt="Javascript: validando formulários"> </p>
+# MoniBank 🏦
+## Validações de Cadastro
 
-<hr>
+1. **Nome** 📛
+   - Obrigatório, com mensagem de erro se vazio.
+   - "Por favor, preencha um nome válido" para entradas inválidas.
 
-<p align="center"> <img src="https://github.com/MonicaHillman/aluraplay-requisicoes/blob/main/img/logo.png" alt="Logo da Alura"> </p>
-<p align="center">Formulário de criação de contas para o banco virtual MoniBank.</p>
+2. **E-mail** 📧
+   - Validação de presença e formato adequado.
 
-## Tecnologias utilizadas durante o curso
-* JavaScript
+3. **RG** 🆔
+   - Verificação da quantidade mínima de caracteres.
+   - Remoção de erro ao adicionar caractere extra.
 
-## Tecnologias utilizadas no projeto
-* HTML
-* CSS
+4. **CPF** 🔢
+   - Mensagem "CPF inválido" para entrada inválida.
+   - Aceitação de CPF válido.
+
+5. **Data de Nascimento** 🎂
+   - Verificação de idade superior a 18 anos.
+
+6. **Reconhecimento Facial** 📸
+   - Captura de foto após clicar no rosto sorridente.
+
+## Experiência do Usuário
+
+Feedback instantâneo e navegação suave proporcionam uma experiência amigável.
+
+## Aprendizados
+
+- **HTML e CSS Avançados** 💻
+- **JavaScript para Validações** 🚦
+- **Trabalho com Eventos** 🎉
+- **Tratamento de Erros** 🚨
+- **Integração de Módulos** 🧩
+- **Acesso à Câmera** 📷
+
+![](https://cdn.dribbble.com/users/2287419/screenshots/15663694/media/74936224354b5bace24995f237dd5d06.gif)
