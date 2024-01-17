@@ -1,14 +1,20 @@
 import ehCpf from "./valida-cpf.js";
 import ehMaiorDeIdade from "./valida-idade.js";
 
+// Dar foco ao primeiro campo required
+document.querySelector("[required]").focus();
+
 const camposDosFormularios = document.querySelectorAll("[required]");
 const form = document.querySelector("[data-formulario]");
+const termos = document.querySelector("[data-termos]");
 
+// Quando aperto para enviar, ele nem entra aqui, pois os atributos são required
+// O erro disparado, preencha esse campo
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     // Verificação da aceitação dos termos
-    if (!e.target.elements["termos"].checked) {
-        verificaCampo(e.target.elements["termos"]);
+    if (!termos.checked) {
+        verificaCampo(termos);
     } 
     else {
         // Extraindo valores dos campos do form
@@ -69,14 +75,15 @@ const mensagensErros = {
 camposDosFormularios.forEach((campo) => {
     // Usar nossos proprios tratamentos de erros
     campo.addEventListener("blur", () => verificaCampo(campo));
+
     //  Tirar o comportamento padrão dos erros
     campo.addEventListener("invalid", (evento) => evento.preventDefault())
 });
 
 function verificaCampo(campo) {
     let exibicaoMensagem = "";
-    // Para limpar mensagens de erros
-    // campo.setCustomValidity(""); essa linha é desnecessaria, pelo o que eu analisei, por que no final do código da função ja limpamos se não o campo for válido (mas se caso perceber algo tiro o comentario)
+    // Para limpar mensagens de erros (deixa como válido)
+    campo.setCustomValidity("");
 
     if (campo.name == "cpf" && campo.value.length >= 11) {
         ehCpf(campo);
