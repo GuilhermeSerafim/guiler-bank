@@ -8,8 +8,6 @@ const camposDosFormularios = document.querySelectorAll("[required]");
 const form = document.querySelector("[data-formulario]");
 const termos = document.querySelector("[data-termos]");
 
-// Quando aperto para enviar, ele nem entra aqui, pois os atributos são required
-// O erro disparado, preencha esse campo
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     // Verificação da aceitação dos termos
@@ -77,11 +75,11 @@ camposDosFormularios.forEach((campo) => {
     campo.addEventListener("blur", () => verificaCampo(campo));
 
     //  Tirar o comportamento padrão dos erros
-    campo.addEventListener("invalid", (evento) => evento.preventDefault())
+    campo.addEventListener("invalid", (evento) => evento.preventDefault());
 });
 
 function verificaCampo(campo) {
-    let exibicaoMensagem = "";
+    let exibicaoMensagemDeErro = "";
     // Para limpar mensagens de erros (deixa como válido)
     campo.setCustomValidity("");
 
@@ -95,20 +93,21 @@ function verificaCampo(campo) {
 
     tiposDeErros.forEach(erro => {
         if (campo.validity[erro]) { // Se algum erro está do nosso array de erros existe dentro do validity (que tem os mesmos nomes)
-            exibicaoMensagem = mensagensErros[campo.name][erro]; // Destrinchando até conseguir o erro respectivo do campo
+            exibicaoMensagemDeErro = mensagensErros[campo.name][erro]; // Destrinchando até conseguir o erro respectivo do campo
             // Para melhor entendimento do destrinchamento
             console.log(mensagensErros) // Todas as chaves que possuem mensagens de erros
             console.log(mensagensErros[campo.name]) // Todos os valores do parametroDaFunção.name (nome, ou email, etc) atendido, sendo eles, nomes e as mensagens dos erros
             console.log(erro); // Nome do erro que passou na condição
-            console.log(exibicaoMensagem); // Mensagem de erro do respectivo campo que passou na condição
+            console.log(exibicaoMensagemDeErro); // Mensagem de erro do respectivo campo que passou na condição
         }
-    })
+    });
+    
     const mensagemErro = campo.parentNode.querySelector('.mensagem-erro'); // Para pegar o span do respectivo campo do parametro da nossa função
     const validadorDeInput = campo.checkValidity(); // Checando se está valido
 
     // Exibir e parar de exibir o erro
     if (!validadorDeInput) {
-        mensagemErro.textContent = exibicaoMensagem;
+        mensagemErro.textContent = exibicaoMensagemDeErro;
     } else {
         mensagemErro.textContent = "";
     }
